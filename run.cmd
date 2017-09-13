@@ -1,0 +1,1 @@
+bin\x64\Release\kill-ryzen-win || exit /b

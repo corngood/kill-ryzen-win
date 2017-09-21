@@ -10,12 +10,29 @@ namespace kill_ryzen_win
     {
         static void Main(string[] args)
         {
+            var compiler = "cl";
+            int? jobs = null;
+            for (var i = 0; i < args.Length; ++i)
+            {
+                switch (args[i])
+                {
+                    case "-c": compiler = args[++i]; break;
+                    case "-j": jobs = int.Parse(args[++i]); break;
+                }
+            }
+            if (jobs.HasValue)
+            {
+                int a, b;
+                System.Threading.ThreadPool.GetMinThreads(out a, out b);
+                System.Threading.ThreadPool.SetMinThreads(jobs.Value, b);
+            }
             Parallel.For(0, int.MaxValue, x =>
             {
                 var tmp = Path.GetTempFileName();
                 try
                 {
-                    var psi = new ProcessStartInfo("cmd.exe", $"/q/c cl /nologo /c bzip2.c /Fo\"{tmp}\" || exit /b")
+                    // extra quotes due to weird cmd.exe /c quoting rules, see cmd.exe /?
+                    var psi = new ProcessStartInfo("cmd.exe", $"/q/c \"\"{compiler}\" /nologo /c bzip2.c /Fo\"{tmp}\" || exit /b\"")
                     {
                         UseShellExecute = false,
                     };

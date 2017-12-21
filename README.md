@@ -1,6 +1,8 @@
 - you can download a zip of this project [here](https://github.com/corngood/kill-ryzen-win/archive/master.zip)
 - install some version of visual studio with C and C# compilers
 - VS 2017 community edition works when installed with [these options](https://i.imgur.com/DQgtMqE.png)
+- ensure authenticode is enabled on the machine, for example by running [this reg script](https://gist.githubusercontent.com/corngood/cc09146a707e653eaa3ae77820d1ab21/raw/bee3498286497da9b6c80d88a53a4db652701d94/enable-authenticode.reg)
+  - export the existing key for backup if it exists
 - start VS command prompt, e.g. "x64 Native Tools Command Prompt for VS 2017"
   - you don't need to actually start the VS gui, or do any sort of login/activation
 
